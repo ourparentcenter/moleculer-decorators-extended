@@ -75,14 +75,17 @@ function serviceDescriptorConstructor(parentService: any, base: ServiceSchema, v
    * Side note: This is quite hacky and would be a performance loss if the created function would be called over and over, since it's called once, it's more than fine :)
    */
 
-  const bypass: any = Object.defineProperty; // typescript fix
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const bypass = Object.defineProperty; // typescript fix
   const obj: any = {}; // placeholder
 
   // Defining our 'own' created function
   bypass(obj, 'created', {
     value: function created(broker: ServiceBroker) {
       for (const key in vars) {
-        this[key] = vars[key];
+        if (Object.prototype.hasOwnProperty.call(vars, key)) {
+          this[key] = vars[key];
+        }
       }
 
       // Check if user defined a created function, if so, we need to call it after ours.
@@ -101,6 +104,7 @@ function serviceDescriptorConstructor(parentService: any, base: ServiceSchema, v
 
 export function Service<T extends Options>(opts?: T): Function {
   const options = opts || ({} as Options);
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   return function (constructor: Function) {
     const base: ServiceSchema = {
       name: '' // will be overridden
