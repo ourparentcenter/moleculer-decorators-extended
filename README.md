@@ -1,10 +1,9 @@
 ![Moleculer logo](https://raw.githubusercontent.com/ice-services/moleculer/HEAD/docs/assets/logo.png)
 
 
-[![npm](https://img.shields.io/npm/v/moleculer-decorators.svg)](https://www.npmjs.com/package/moleculer-decorators) 
-[![npm](https://img.shields.io/npm/dm/moleculer-decorators.svg)](https://www.npmjs.com/package/moleculer-decorators) 
-[![GitHub issues](https://img.shields.io/github/issues/ColonelBundy/moleculer-decorators.svg)](https://github.com/ColonelBundy/moleculer-decorators/issues) 
-[![GitHub license](https://img.shields.io/github/license/ColonelBundy/moleculer-decorators.svg)](https://github.com/ColonelBundy/moleculer-decorators/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/@d0whc3r/moleculer-decorators.svg)](https://www.npmjs.com/package/@d0whc3r/moleculer-decorators) 
+[![GitHub issues](https://img.shields.io/github/issues/d0whc3r/moleculer-decorators.svg)](https://github.com/d0whc3r/moleculer-decorators/issues) 
+[![GitHub license](https://img.shields.io/github/license/d0whc3r/moleculer-decorators.svg)](https://github.com/d0whc3r/moleculer-decorators/blob/master/LICENSE)
 [![Powered by moleculer](https://img.shields.io/badge/Powered%20by-Moleculer-green.svg?colorB=0e83cd)](http://moleculer.services/)
 # Moleculer Decorators
 > Decorators for moleculer, Tested & accurate as of 0.14
