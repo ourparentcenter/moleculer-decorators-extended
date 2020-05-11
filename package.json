@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "tsc": "tsc",
-    "lint": "eslint -c .eslintrc.js --ext .ts .",
+    "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "yarn eslint --fix",
     "compile": "npm run clean && tsc && node dist/index.js",
     "dev": "nodemon --delay 2000 -e ts --exec \"npm run compile\"",
