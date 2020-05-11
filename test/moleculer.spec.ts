@@ -1,20 +1,19 @@
-import { ServiceBroker } from "moleculer";
-import { CustomService } from "./customServices/CustomServiceFactory";
-import api from "./services/api.service";
-import get from "./services/get.service";
-import db from "./services/db.service";
-import custom from "./customServices/custom.service";
-import * as request from "supertest";
-
+import { ServiceBroker } from 'moleculer';
+import { CustomService } from './customServices/CustomServiceFactory';
+import api from './services/api.service';
+import get from './services/get.service';
+import db from './services/db.service';
+import custom from './customServices/custom.service';
+import request from 'supertest';
 // Issues
-import issue20 from "./Schema/issue#20";
+import issue20 from './Schema/issue#20';
 
-describe("Moleculer", () => {
-  const broker = new ServiceBroker({ logLevel: "warn" });
+describe('Moleculer', () => {
+  const broker = new ServiceBroker({ logLevel: 'warn' });
   const customizedBroker = new ServiceBroker({
     // @ts-ignore
     ServiceFactory: CustomService,
-    logLevel: "warn"
+    logLevel: 'warn'
   });
 
   beforeAll(async () => {
@@ -27,26 +26,23 @@ describe("Moleculer", () => {
     await customizedBroker.stop();
   });
 
-  describe("Test auth", () => {
-    const VALID_TOKEN = "123";
+  describe('Test auth', () => {
+    const VALID_TOKEN = '123';
     broker.createService(get);
     const apiService = broker.createService(api);
 
-    it("should pass auth", async () => {
-      await request(apiService.server)
-        .get("/getTest/getModel/5")
-        .set("Authorization", VALID_TOKEN)
-        .expect(200);
+    it('should pass auth', async () => {
+      await request(apiService.server).get('/getTest/getModel/5').set('Authorization', VALID_TOKEN).expect(200);
 
       // close HTTP service to release the port
       broker.destroyService(apiService);
     });
   });
 
-  describe("moleculer-db mixin", () => {
+  describe('moleculer-db mixin', () => {
     const dbService = broker.createService(db);
 
-    it("should have all lifecycle methods available", () => {
+    it('should have all lifecycle methods available', () => {
       expect(dbService.schema.afterConnected).toBeDefined();
       expect(dbService.schema.entityCreated).toBeDefined();
       expect(dbService.schema.entityUpdated).toBeDefined();
@@ -59,34 +55,30 @@ describe("Moleculer", () => {
   });
 
   // when running via moleculer-runner, broker creates services with loadService
-  describe("Test broker ServiceFactory", () => {
+  describe('Test broker ServiceFactory', () => {
     const customService = customizedBroker.createService(custom);
 
-    it("should load the service inherited from CustomService factory", () => {
+    it('should load the service inherited from CustomService factory', () => {
       expect(customService).toBeDefined();
     });
 
     it('should return "bar" value', async () => {
-      expect(await customizedBroker.call("CustomTest.testAction")).toEqual(
-        "bar"
-      );
+      expect(await customizedBroker.call('CustomTest.testAction')).toEqual('bar');
     });
   });
 
-  describe("Test #20", () => {
+  describe('Test #20', () => {
     const service = broker.createService(issue20);
 
-    it("should load the service", () => {
+    it('should load the service', () => {
       expect(service).toBeDefined();
     });
 
     it('should return "Hello" value', async () => {
-      const req = await request(service.server)
-        .get("/DemoController/welcome")
-        .expect(200);
+      const req = await request(service.server).get('/DemoController/welcome').expect(200);
 
-      expect(req.body).toEqual("Hello");
-      expect(await broker.call("DemoController.welcome")).toEqual("Hello");
+      expect(req.body).toEqual('Hello');
+      expect(await broker.call('DemoController.welcome')).toEqual('Hello');
     });
   });
 });

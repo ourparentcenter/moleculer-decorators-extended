@@ -1,26 +1,26 @@
-import { Service } from "../../src";
-import * as moleculer from "moleculer";
-import * as DbMixin from "moleculer-db";
+import { Service } from '../../src';
+import moleculer, { ServiceSettingSchema } from 'moleculer';
+import DbMixin from 'moleculer-db';
 
-@Service({
-  mixins: [DbMixin as any]
+@Service<ServiceSettingSchema>({
+  mixins: [DbMixin]
 })
 export default class DbService extends moleculer.Service {
-  public connected: boolean = false;
+  public connected = false;
 
   public afterConnected() {
     this.connected = true;
   }
 
-  entityCreated(data) {
+  entityCreated(data: any) {
     this.logger.info(data);
   }
 
-  entityUpdated(data) {
+  entityUpdated(data: any) {
     this.logger.info(data);
   }
 
-  public entityRemoved(data) {
+  public entityRemoved(data: any) {
     this.logger.info(data);
   }
 }

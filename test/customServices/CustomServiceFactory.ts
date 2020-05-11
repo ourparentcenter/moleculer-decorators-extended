@@ -1,11 +1,11 @@
-import { Service } from "moleculer";
+import { Service, ServiceBroker, ServiceSchema } from 'moleculer';
 
 export class CustomService extends Service {
-  constructor(broker, schema) {
+  constructor(broker: ServiceBroker, schema: ServiceSchema) {
     super(broker, schema);
   }
 
   foo() {
-    return "bar";
+    return 'bar';
   }
 }

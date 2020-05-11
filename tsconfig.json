@@ -1,24 +1,43 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "sourceMap": false,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "isolatedModules": false,
-    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
-    "declaration": true,
-    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2016",
+      "es6",
+      "es2015",
+      "dom"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noStrictGenericChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "pretty": true,
     "removeComments": true,
-    "noLib": false,
-    "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es2016",
+    "traceResolution": false,
+    "types": [
+      "node",
+      "jest"
+    ],
     "outDir": "dist",
     "baseUrl": "./src/",
     "paths": {
       "*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "exclude": ["node_modules", "typings/main", "typings/main.d.ts"]
 }
