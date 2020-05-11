@@ -5,13 +5,12 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
-    "tsc": "tsc",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "yarn eslint --fix",
-    "compile": "npm run clean && tsc && node dist/index.js",
     "dev": "nodemon --delay 2000 -e ts --exec \"npm run compile\"",
     "test": "jest --coverage --forceExit --detectOpenHandles",
     "format": "pretty-quick \"*.ts\" --write --staged",
