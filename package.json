@@ -17,7 +17,6 @@
     "ci": "yarn clean && yarn install",
     "clean": "yarn clean:packages",
     "clean:packages": "rm -fr yarn.lock package-lock.json dist node_modules",
-    "preversion": "npm run lint && npm run tsc && npm run test",
     "postversion": "git push && git push --follow-tags",
     "build:clean": "rimraf dist bin",
     "build:dist": "rollup -c",
