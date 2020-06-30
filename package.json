@@ -1,6 +1,6 @@
 {
   "name": "@d0whc3r/moleculer-decorators",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "decorators for moleculer",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
