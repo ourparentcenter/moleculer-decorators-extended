@@ -1,13 +1,6 @@
 import { ActionHandler, ActionSchema, EventSchema, ServiceBroker, ServiceEventHandler, ServiceSchema } from 'moleculer';
 import { isFunction, omit } from './util';
 
-const blacklist = ['created', 'started', 'stopped', 'actions', 'methods', 'events', 'broker', 'logger'];
-const blacklist2 = ['metadata', 'settings', 'mixins', 'name', 'version'].concat(blacklist);
-const defaultServiceOptions: Options = {
-  constructOverride: true,
-  skipHandler: false // not needed, just for clarity
-};
-
 export interface Options extends Partial<ServiceSchema> {
   name?: string;
   constructOverride?: boolean;
@@ -26,46 +19,26 @@ export interface EventOptions extends Partial<EventSchema> {
   handler?: ServiceEventHandler; // not really used
 }
 
-export function Method(target: any, key: string, descriptor: PropertyDescriptor) {
-  (target.methods || (target.methods = {}))[key] = descriptor.value;
-}
-
-export function Event(options?: EventOptions) {
-  return function (target: any, key: string, descriptor: PropertyDescriptor) {
-    (target.events || (target.events = {}))[key] = options
-      ? {
-          ...options,
-          handler: descriptor.value
-        }
-      : descriptor.value;
-  };
-}
-
-export function Action(options: ActionOptions = {}) {
-  return function (target: any, key: string, descriptor: PropertyDescriptor) {
-    if (!options.skipHandler) {
-      options.handler = descriptor.value;
-    } else {
-      delete options.skipHandler;
-    }
-
-    (target.actions || (target.actions = {}))[key] = { ...options };
-  };
-}
+const blacklist = ['created', 'started', 'stopped', 'actions', 'methods', 'events', 'broker', 'logger'];
+const blacklist2 = ['metadata', 'settings', 'mixins', 'name', 'version'].concat(blacklist);
+const defaultServiceOptions: Options = {
+  constructOverride: true,
+  skipHandler: false // not needed, just for clarity
+};
 
 // Instead of using moleculer's ServiceBroker, we will fake the broker class to pass it to service constructor
-const mockServiceBroker = new Object({ Promise });
+const mockServiceBroker = { Promise };
 
-function serviceDescriptorConstructor(parentService: any, base: ServiceSchema, vars: any) {
+const serviceDescriptorConstructor = (parentService: any, base: ServiceSchema, vars: any) => {
   // Override properties defined in @Service
   const ServiceClass = new parentService.constructor(mockServiceBroker);
 
-  Object.getOwnPropertyNames(ServiceClass).forEach(function (key) {
+  Object.getOwnPropertyNames(ServiceClass).forEach((key) => {
     if (!blacklist.includes(key) && isFunction(ServiceClass[key])) {
-      base[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
+      if (base.hasOwnProperty(key)) base[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
       if (!blacklist2.includes(key)) {
         // Needed, otherwize if the service is used as a mixin, these variables will overwrite the toplevel's
-        vars[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
+        if (vars.hasOwnProperty(key)) vars[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
       }
     }
   });
@@ -100,9 +73,36 @@ function serviceDescriptorConstructor(parentService: any, base: ServiceSchema, v
   });
 
   base['created'] = obj.created;
-}
+};
 
-export function Service<T extends Options>(opts?: T): Function {
+const Method = (target: any, key: string, descriptor: PropertyDescriptor) => {
+  (target.methods || (target.methods = {}))[key] = descriptor.value;
+};
+
+const Event = (options?: EventOptions) => {
+  return function (target: any, key: string, descriptor: PropertyDescriptor) {
+    (target.events || (target.events = {}))[key] = options
+      ? {
+          ...options,
+          handler: descriptor.value
+        }
+      : descriptor.value;
+  };
+};
+
+const Action = (options: ActionOptions = {}) => {
+  return function (target: any, key: string, descriptor: PropertyDescriptor) {
+    if (!options.skipHandler) {
+      options.handler = descriptor.value;
+    } else {
+      delete options.skipHandler;
+    }
+
+    (target.actions || (target.actions = {}))[key] = { ...options };
+  };
+};
+
+const Service = <T extends Options>(opts?: T): Function => {
   const options = opts || ({} as Options);
   // eslint-disable-next-line sonarjs/cognitive-complexity
   return function (constructor: Function) {
@@ -162,4 +162,5 @@ export function Service<T extends Options>(opts?: T): Function {
       }
     };
   };
-}
+};
+export { Method, Event, Action, Service };
