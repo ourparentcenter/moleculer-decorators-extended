@@ -114,5 +114,6 @@
     "{src,cli}/**/*.ts": [
       "yarn format"
     ]
-  }
+  },
+  "private": true
 }
