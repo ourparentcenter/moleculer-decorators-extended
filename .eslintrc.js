@@ -22,7 +22,7 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
-        'prettier/@typescript-eslint'
+        // 'prettier/@typescript-eslint'
       ],
       rules: {
         // Resets
@@ -43,7 +43,7 @@ module.exports = {
         '@typescript-eslint/func-call-spacing': 2,
 
         // tslint
-        '@typescript-eslint/class-name-casing': 2,
+        '@typescript-eslint/class-name-casing': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           0,
           {

@@ -1,3 +1,10 @@
+/* eslint-disable sonarjs/no-collapsible-if */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ActionHandler, ActionSchema, EventSchema, ServiceBroker, ServiceEventHandler, ServiceSchema } from 'moleculer';
 import { isFunction, omit } from './util';
 
