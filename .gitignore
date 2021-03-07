@@ -93,7 +93,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-dist/
+# dist/
 testing/
 .yarnclean
 .dccache
