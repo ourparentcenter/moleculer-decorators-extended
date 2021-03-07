@@ -1,9 +1,9 @@
 ![Moleculer logo](https://raw.githubusercontent.com/ice-services/moleculer/HEAD/docs/assets/logo.png)
 
 
-[![npm](https://img.shields.io/npm/v/@d0whc3r/moleculer-decorators.svg)](https://www.npmjs.com/package/@d0whc3r/moleculer-decorators) 
-[![GitHub issues](https://img.shields.io/github/issues/d0whc3r/moleculer-decorators.svg)](https://github.com/d0whc3r/moleculer-decorators/issues) 
-[![GitHub license](https://img.shields.io/github/license/d0whc3r/moleculer-decorators.svg)](https://github.com/d0whc3r/moleculer-decorators/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/@ourparentcenter/moleculer-decorators-extended.svg)](https://www.npmjs.com/package/@ourparentcenter/moleculer-decorators-extended) 
+[![GitHub issues](https://img.shields.io/github/issues/d0whc3r/moleculer-decorators.svg)](https://github.com/ourparentcenter/moleculer-decorators-extended/issues) 
+[![GitHub license](https://img.shields.io/github/license/d0whc3r/moleculer-decorators.svg)](https://github.com/ourparentcenter/moleculer-decorators-extended/blob/master/LICENSE)
 [![Powered by moleculer](https://img.shields.io/badge/Powered%20by-Moleculer-green.svg?colorB=0e83cd)](http://moleculer.services/)
 # Moleculer Decorators
 > Decorators for moleculer, Tested & accurate as of 0.14
@@ -19,7 +19,7 @@ skipHandler: true // false by default, this will let a mixin override the handle
 
 ```js
 const moleculer = require('moleculer');
-const { Service, Action, Event, Method } = require('moleculer-decorators');
+const { Service, Action, Event, Method, Get, Post, Put, Patch, Delete } = require('@ourparentcenter/moleculer-decorators-extended');
 const web = require('moleculer-web');
 const broker = new moleculer.ServiceBroker({
   logger: console,
@@ -74,6 +74,16 @@ class ServiceName extends moleculer.Service {
     ...
   }
 
+  // Get, Post, Put, Patch, Delete follow the same syntax below
+  @Get('/user', {
+    params: {
+      id: "string"
+    }
+  })
+  getUser(ctx) {
+      ...
+  }
+
   @Event({
     group: 'group_name'
   })
@@ -120,7 +130,7 @@ broker.start();
 > All you have to do, is pass your custom ServiceFactory to broker options and also extend your services from this class 
 ```js
 const moleculer = require('moleculer');
-const { Service, Action } = require('moleculer-decorators');
+const { Service, Action } = require('@ourparentcenter/moleculer-decorators-extended');
 
 // create new service factory, inheriting from moleculer native Service
 class CustomService extends moleculer.Service {
