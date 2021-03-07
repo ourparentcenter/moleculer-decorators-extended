@@ -114,5 +114,8 @@
     "{src,cli}/**/*.ts": [
       "yarn format"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
