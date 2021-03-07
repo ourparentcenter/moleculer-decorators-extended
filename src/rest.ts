@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Action, ActionOptions } from './basic';
 
 // export function Get<T extends ActionOptions>(path: string, options?: T) {
