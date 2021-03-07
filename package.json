@@ -1,6 +1,6 @@
 {
   "name": "@ourparentcenter/moleculer-decorators-extended",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "decorators for moleculer",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
