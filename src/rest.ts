@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Action, ActionOptions } from './basic';
+import { Action, ActionOptions } from './actions';
 
 // export function Get<T extends ActionOptions>(path: string, options?: T) {
-const Get = <T extends ActionOptions>(path: string, options?: T) => {
+export const Get = <T extends ActionOptions>(path: string, options?: T) => {
   const opts = {
     ...(options || {}),
     rest: `GET ${path}`
@@ -10,7 +9,7 @@ const Get = <T extends ActionOptions>(path: string, options?: T) => {
   return Action(opts);
 };
 
-const Post = <T extends ActionOptions>(path: string, options?: T) => {
+export const Post = <T extends ActionOptions>(path: string, options?: T) => {
   const opts = {
     ...(options || {}),
     rest: `POST ${path}`
@@ -18,7 +17,7 @@ const Post = <T extends ActionOptions>(path: string, options?: T) => {
   return Action(opts);
 };
 
-const Put = <T extends ActionOptions>(path: string, options?: T) => {
+export const Put = <T extends ActionOptions>(path: string, options?: T) => {
   const opts = {
     ...(options || {}),
     rest: `PUT ${path}`
@@ -26,7 +25,7 @@ const Put = <T extends ActionOptions>(path: string, options?: T) => {
   return Action(opts);
 };
 
-const Patch = <T extends ActionOptions>(path: string, options?: T) => {
+export const Patch = <T extends ActionOptions>(path: string, options?: T) => {
   const opts = {
     ...(options || {}),
     rest: `PATCH ${path}`
@@ -34,11 +33,42 @@ const Patch = <T extends ActionOptions>(path: string, options?: T) => {
   return Action(opts);
 };
 
-const Delete = <T extends ActionOptions>(path: string, options?: T) => {
+export const Delete = <T extends ActionOptions>(path: string, options?: T) => {
   const opts = {
     ...(options || {}),
     rest: `DELETE ${path}`
   };
   return Action(opts);
 };
-export { Get, Post, Put, Patch, Delete };
+
+export const OptionsVerb = <T extends ActionOptions>(path: string, options?: T) => {
+  const opts = {
+    ...(options || {}),
+    rest: `OPTIONS ${path}`
+  };
+  return Action(opts);
+};
+
+export const Head = <T extends ActionOptions>(path: string, options?: T) => {
+  const opts = {
+    ...(options || {}),
+    rest: `HEAD ${path}`
+  };
+  return Action(opts);
+};
+
+export const Connect = <T extends ActionOptions>(path: string, options?: T) => {
+  const opts = {
+    ...(options || {}),
+    rest: `CONNECT ${path}`
+  };
+  return Action(opts);
+};
+
+export const Trace = <T extends ActionOptions>(path: string, options?: T) => {
+  const opts = {
+    ...(options || {}),
+    rest: `TRACE ${path}`
+  };
+  return Action(opts);
+};

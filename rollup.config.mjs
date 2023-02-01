@@ -1,6 +1,6 @@
 import esbuild from 'rollup-plugin-esbuild';
 import autoExternal from 'rollup-plugin-auto-external';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 export default () => {
   const mainInput = {

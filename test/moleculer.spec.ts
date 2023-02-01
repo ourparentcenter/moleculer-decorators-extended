@@ -11,7 +11,6 @@ import issue20 from './Schema/issue#20';
 describe('Moleculer', () => {
   const broker = new ServiceBroker({ logLevel: 'warn' });
   const customizedBroker = new ServiceBroker({
-    // @ts-ignore
     ServiceFactory: CustomService,
     logLevel: 'warn'
   });
@@ -35,7 +34,7 @@ describe('Moleculer', () => {
       await request(apiService.server).get('/getTest/getModel/5').set('Authorization', VALID_TOKEN).expect(200);
 
       // close HTTP service to release the port
-      broker.destroyService(apiService);
+      await broker.destroyService(apiService);
     });
   });
 

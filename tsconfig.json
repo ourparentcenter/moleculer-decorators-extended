@@ -5,12 +5,7 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "lib": [
-      "es2016",
-      "es6",
-      "es2015",
-      "dom"
-    ],
+    "lib": ["es2016", "es6", "es2015", "dom"],
     "module": "CommonJS",
     "moduleResolution": "node",
     "noEmitOnError": true,
@@ -28,16 +23,13 @@
     "strictNullChecks": true,
     "target": "es2016",
     "traceResolution": false,
-    "types": [
-      "node",
-      "jest"
-    ],
+    "types": ["jest", "node"],
     "outDir": "dist",
     "baseUrl": "./src/",
     "paths": {
       "*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", ".eslintrc.js"],
   "exclude": ["node_modules", "typings/main", "typings/main.d.ts"]
 }

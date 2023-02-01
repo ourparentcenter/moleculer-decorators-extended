@@ -5,12 +5,14 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2019,
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: 'tsconfig.json'
   },
   env: {
     browser: true,
     node: true,
-    es6: true
+    es6: true,
+    jest: true,
+    circus: true
   },
   overrides: [
     {
@@ -21,7 +23,7 @@ module.exports = {
         'plugin:prettier/recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking'
         // 'prettier/@typescript-eslint'
       ],
       rules: {
