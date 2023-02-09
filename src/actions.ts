@@ -1,23 +1,11 @@
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { /* ActionHandler, */ ActionSchema, Context } from 'moleculer';
 import { isFunction, getMetadata, removeMetadata, setMetadata, getParamNames } from './utils';
-
-// export interface ActionOptions extends Partial<ActionSchema> {
-//   name?: string;
-//   handler?: ActionHandler<any>; // Not really used
-//   skipHandler?: boolean;
-// }
-
-/* const Action = (options: ActionOptions = {}) => {
-  return function (target: any, key: string, descriptor: PropertyDescriptor) {
-    if (!options.skipHandler) {
-      options.handler = descriptor.value;
-    } else {
-      delete options.skipHandler;
-    }
-
-    (target.actions || (target.actions = {}))[key] = { ...options };
-  };
-}; */
 
 export interface ActionOptions {
   name?: ActionSchema['name'];

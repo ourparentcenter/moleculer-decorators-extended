@@ -1,24 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ServiceEvent /* , ServiceEventHandler, EventSchema */ } from 'moleculer';
 import { isFunction } from './utils/utility';
 
 import { getMetadata, setMetadata } from './utils/metadata';
-
-// export interface EventOptions extends Partial<EventSchema> {
-//   name?: string;
-//   group?: string;
-//   handler?: ServiceEventHandler; // not really used
-// }
-
-/* const Event = (options?: EventOptions) => {
-  return function (target: any, key: string, descriptor: PropertyDescriptor) {
-    (target.events || (target.events = {}))[key] = options
-      ? {
-          ...options,
-          handler: descriptor.value
-        }
-      : descriptor.value;
-  };
-}; */
 
 /**
  * Options for the event, based off ServiceEvent
@@ -47,57 +32,3 @@ export const Event = (options?: EventOptions): MethodDecorator => {
     throw new TypeError('An event handler must be a function/method');
   };
 };
-
-// /**
-//  * Available lifecycle events
-//  */
-// export type LifeCycleEventNames = 'created' | 'merged' | 'started' | 'stopped';
-
-// /**
-//  * Add method as a lifecycle event handler
-//  * @param name Name of the lifecycle event
-//  */
-// export const lifeCycleEvent = (name: LifeCycleEventNames): MethodDecorator => {
-//   if (!name) {
-//     throw new ReferenceError('Lifecycle event name required');
-//   }
-
-//   return <T>(target: object, _propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => {
-//     const handler = descriptor.value;
-//     if (isFunction(handler)) {
-//       setMetadata(target, name, handler);
-
-//       return descriptor;
-//     }
-
-//     throw new TypeError('A lifecycle event handler must be a function/method');
-//   };
-// };
-
-// /**
-//  * Service created event
-//  */
-// export const ServiceCreated = (): MethodDecorator => {
-//   return lifeCycleEvent('created');
-// };
-
-// /**
-//  * Service created event
-//  */
-// export const ServiceMerged = (): MethodDecorator => {
-//   return lifeCycleEvent('merged');
-// };
-
-// /**
-//  * Service started event
-//  */
-// export const ServiceStarted = (): MethodDecorator => {
-//   return lifeCycleEvent('started');
-// };
-
-// /**
-//  * Service stopped event
-//  */
-// export const ServiceStopped = (): MethodDecorator => {
-//   return lifeCycleEvent('stopped');
-// };

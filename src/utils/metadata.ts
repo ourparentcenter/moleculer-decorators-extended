@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /**
  * Abstract the calls incase the Reflect library changes or a different one is better
  */

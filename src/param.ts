@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { getMetadata, setMetadata } from './utils/metadata';
 import { getParamNames } from './utils/parameters';
 
