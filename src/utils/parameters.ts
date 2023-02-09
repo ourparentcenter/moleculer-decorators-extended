@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
 
 function getParameterBody(func: Function): string {

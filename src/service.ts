@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Service as MolecService, ServiceSchema, ServiceBroker } from 'moleculer';
-
 import { isFunction, /* omit, */ getMetadata, getMetadataKeys, removeMetadata } from './utils';
-
 import { META_PREFIX } from './constants';
-
 import { DecoratorError } from './error';
-// import { getMetadata, getMetadataKeys, removeMetadata } from './utils/metadata';
 
 export interface Options extends Partial<ServiceSchema> {
   name?: string;
@@ -31,12 +32,9 @@ const serviceDescriptorConstructor = (parentService: any, base: ServiceSchema, v
   Object.getOwnPropertyNames(ServiceClass).forEach((key) => {
     const propertyDescriptor = Object.getOwnPropertyDescriptor(ServiceClass, key);
     if (!blacklist.includes(key) && isFunction(ServiceClass[key]) && propertyDescriptor) {
-      // if (base.hasOwnProperty(key)) base[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
       base[key] = propertyDescriptor.value;
       if (!blacklist2.includes(key)) {
-        // Needed, otherwize if the service is used as a mixin, these variables will overwrite the toplevel's
         vars[key] = propertyDescriptor.value;
-        // if (vars.hasOwnProperty(key)) vars[key] = Object.getOwnPropertyDescriptor(ServiceClass, key)!.value;
       }
     }
   });
@@ -73,68 +71,6 @@ const serviceDescriptorConstructor = (parentService: any, base: ServiceSchema, v
   base['created'] = obj.created;
 };
 
-// export const Service = <T extends Options>(opts?: T): Function => {
-//   const options = opts || ({} as Options);
-//   // eslint-disable-next-line sonarjs/cognitive-complexity
-//   return function (constructor: Function) {
-//     const base: ServiceSchema = {
-//       name: '' // will be overridden
-//     };
-//     const _options = { ...defaultServiceOptions, ...options };
-
-//     Object.defineProperty(base, 'name', {
-//       value: options.name || constructor.name,
-//       writable: false,
-//       enumerable: true
-//     });
-
-//     if (options.name) {
-//       delete options.name; // not needed
-//     }
-
-//     Object.assign(base, omit(options, Object.keys(defaultServiceOptions))); // Apply
-
-//     const parentService = constructor.prototype;
-//     const vars: any = {};
-//     Object.getOwnPropertyNames(parentService).forEach(function (key) {
-//       if (key === 'constructor') {
-//         if (_options.constructOverride) {
-//           serviceDescriptorConstructor(parentService, base, vars);
-//         }
-//         return;
-//       }
-
-//       const descriptor = Object.getOwnPropertyDescriptor(parentService, key)!;
-
-//       if (key === 'created' && !_options.constructOverride) {
-//         base[key] = descriptor.value;
-//       }
-
-//       if (key === 'started' || key === 'stopped') {
-//         base[key] = descriptor.value;
-//         return;
-//       }
-
-//       if (key === 'events' || key === 'methods' || key === 'actions') {
-//         base[key] ? Object.assign(Object(base[key]), descriptor.value) : (base[key] = descriptor.value);
-//         return;
-//       }
-
-//       // moleculer-db lifecycle methods (https://github.com/ColonelBundy/moleculer-decorators/issues/2)
-//       if (key === 'afterConnected' || key === 'entityCreated' || key === 'entityUpdated' || key === 'entityRemoved') {
-//         base[key] = descriptor.value;
-//       }
-//     });
-
-//     return class extends parentService.constructor {
-//       constructor(broker: ServiceBroker, schema: ServiceSchema) {
-//         super(broker, schema);
-//         this.parseServiceSchema(base);
-//       }
-//     };
-//   };
-// };
-
 /**
  * Type guard to ensure a constructor is an extended Moleculer Service
  * @param constructor The constructor to check
@@ -167,13 +103,6 @@ export const getClassMetadata = (constructor: ServiceConstructor): Partial<Servi
 /**
  * These options should be set in the class itself instead of the options
  */
-// export type ServiceOptionsToExclude = 'actions' | 'events' | 'methods' | 'created' | 'started' | 'stopped';
-
-// export type ServiceOptions = Partial<Pick<ServiceSchema, Exclude<keyof ServiceSchema, ServiceOptionsToExclude>>>;
-
-/* export interface ServiceConstructor {
-  new (...args: any[]): Service;
-} */
 export type ServiceConstructor = new (...args: any[]) => MolecService;
 
 export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) => T;
@@ -182,8 +111,7 @@ export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) =>
  * Add all handlers to the schema for the service
  * @param options
  */
-export const Service = <T extends Options>(opts?: T): ServiceDecorator => {
-  // const options: ServiceOptions = opts || ({} as Options);
+export const Service = <O extends Options>(opts?: O): ServiceDecorator => {
   const options = opts || ({} as Options);
 
   return <T extends ServiceConstructor>(constructor: T) => {
@@ -210,20 +138,10 @@ export const Service = <T extends Options>(opts?: T): ServiceDecorator => {
             schema[key] = descriptor.value;
           }
 
-          // if (key === 'started' || key === 'stopped') {
-          //   schema[key] = descriptor.value;
-          //   return;
-          // }
-
           if (['started', 'stopped'].includes(key)) {
             schema[key] = descriptor.value;
             return;
           }
-
-          // if (key === 'events' || key === 'methods' || key === 'actions') {
-          //   schema[key] ? Object.assign(Object(schema[key]), descriptor.value) : (schema[key] = descriptor.value);
-          //   return;
-          // }
 
           if (['events', 'methods', 'actions'].includes(key)) {
             if (schema[key]) {
@@ -234,10 +152,6 @@ export const Service = <T extends Options>(opts?: T): ServiceDecorator => {
             return;
           }
 
-          // moleculer-db lifecycle methods (https://github.com/ColonelBundy/moleculer-decorators/issues/2)
-          // if (key === 'afterConnected' || key === 'entityCreated' || key === 'entityUpdated' || key === 'entityRemoved') {
-          //   schema[key] = descriptor.value;
-          // }
           if (['afterConnected', 'entityCreated', 'entityUpdated', 'entityRemoved'].includes(key)) {
             schema[key] = descriptor.value;
           }
@@ -262,33 +176,3 @@ export const Service = <T extends Options>(opts?: T): ServiceDecorator => {
     throw TypeError('Class must extend Service');
   };
 };
-// export const Service = <T extends Options>(options?: T | ServiceOptions): ServiceDecorator => {
-//   return <T extends ServiceConstructor>(constructor: T) => {
-//     if (isServiceClass(constructor)) {
-//       // TODO: Filter options to remove actions, events, etc..
-//       let schema: ServiceSchema = {
-//         ...options,
-//         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-//         name: options?.name || constructor.name,
-//         ...defaultServiceOptions
-//       };
-
-//       try {
-//         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-//         const keys = getClassMetadata(constructor.prototype);
-//         schema = { ...schema, ...keys };
-//       } catch (ex: any) {
-//         throw new DecoratorError('An error occured creating the service schema', ex as Error | undefined);
-//       }
-
-//       return class extends constructor {
-//         constructor(...args: any[]) {
-//           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-//           super(...args);
-//           this.parseServiceSchema(schema);
-//         }
-//       };
-//     }
-//     throw TypeError('Class must extend Service');
-//   };
-// };
