@@ -243,11 +243,9 @@ export const Service = <T extends Options>(opts?: T): ServiceDecorator => {
           }
         });
         const keys = getClassMetadata(constructor.prototype);
-        // todo: below merges the two objects, we need a better merge to allow actions and methods to be merged when defined in service decorator
         const actions = schema.actions;
         schema = { ...schema, ...keys };
         if (schema.mergeActions && schema.actions) {
-          console.log(actions);
           Object.assign(schema.actions, actions);
         }
       } catch (ex: any) {

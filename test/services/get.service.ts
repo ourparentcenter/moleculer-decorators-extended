@@ -1,5 +1,5 @@
 import Moleculer from 'moleculer';
-import { Action, Method, Service } from '../../src';
+import { Action, Method, Service, ServiceCreated, ServiceStarted, ServiceStopped } from '../../src';
 import { User } from './api.service';
 
 interface ChatsActionParams {
@@ -34,7 +34,16 @@ export default class GetTest extends Moleculer.Service {
     return Promise.resolve({ id: '5' });
   }
 
-  created(): void {
+  @ServiceCreated()
+  createdService(): void {
     this.logger.info('Successfully created!');
+  }
+  @ServiceStarted()
+  startedService(): void {
+    this.logger.info('Successfully Started!');
+  }
+  @ServiceStopped()
+  stoppedService(): void {
+    this.logger.info('Successfully Stopped!');
   }
 }

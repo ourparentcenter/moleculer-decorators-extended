@@ -1,12 +1,12 @@
 import { ServiceBroker } from 'moleculer';
-import { CustomService } from './customServices/CustomServiceFactory';
-import api from './services/api.service';
-import get from './services/get.service';
-import db from './services/db.service';
-import custom from './customServices/custom.service';
+import { CustomService } from '../customServices/CustomServiceFactory';
+import api from '../services/api.service';
+import get from '../services/get.service';
+import db from '../services/db.service';
+import custom from '../customServices/custom.service';
 import request from 'supertest';
 // Issues
-import issue20 from './Schema/issue#20';
+import issue20 from '../Schema/issue#20';
 
 describe('Moleculer', () => {
   const broker = new ServiceBroker({ logLevel: 'warn' });
