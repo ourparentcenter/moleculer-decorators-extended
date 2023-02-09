@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { ActionHandler, ActionSchema, EventSchema, ServiceBroker, ServiceEventHandler, ServiceSchema } from 'moleculer';
-import { isFunction, omit } from './util';
+import { isFunction, omit } from './utils/utility';
 
 export interface Options extends Partial<ServiceSchema> {
   name?: string;
@@ -152,7 +152,7 @@ const Service = <T extends Options>(opts?: T): Function => {
       }
 
       if (key === 'events' || key === 'methods' || key === 'actions') {
-        base[key] ? Object.assign(base[key], descriptor.value) : (base[key] = descriptor.value);
+        base[key] ? Object.assign(Object(base[key]), descriptor.value) : (base[key] = descriptor.value);
         return;
       }
 
