@@ -1,10 +1,9 @@
-/* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { /* ActionHandler, */ ActionSchema, Context } from 'moleculer';
+import { ActionSchema, Context } from 'moleculer';
 import { isFunction, getMetadata, removeMetadata, setMetadata, getParamNames } from './utils';
 
 export interface ActionOptions {

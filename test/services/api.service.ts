@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { IncomingMessage, ServerResponse } from 'http';
 import Moleculer from 'moleculer';
 import { Method, Service } from '../../src';

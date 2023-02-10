@@ -3,7 +3,7 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:sonarjs/recommended'],
   plugins: ['sonarjs'],
   parserOptions: {
-    ecmaVersion: 2019,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     project: 'tsconfig.json'
   },
@@ -150,7 +150,11 @@ module.exports = {
     'prefer-const': 2,
     radix: 2,
     'no-shadowed-variable': 0,
-    'max-params': [2, 4]
+    'max-params': [2, 4],
+
+    'sonarjs/no-duplicate-string': 0,
+    'sonarjs/no-identical-functions': 0,
+    'sonarjs/cognitive-complexity': ['error', 32]
   },
   settings: {
     'import/parsers': {

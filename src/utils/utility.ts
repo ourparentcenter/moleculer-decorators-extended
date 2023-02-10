@@ -11,7 +11,6 @@ const getTag = (value: any) => {
 
 const isObject = (value: any) => {
   const type = typeof value;
-  // return value != null && (type == 'object' || type == 'function');
   return value != null && ['object', 'function'].includes(type);
 };
 
@@ -30,7 +29,5 @@ const isFunction = (value: any) => {
   // The use of `Object#toString` avoids issues with the `typeof` operator
   // in Safari 9 which returns 'object' for typed arrays and other constructors.
   return ['[object Function]', '[object AsyncFunction]', '[object GeneratorFunction]', '[object Proxy]'].includes(getTag(value));
-  // const tag = getTag(value);
-  // return ['[object Function]', '[object AsyncFunction]', '[object GeneratorFunction]', '[object Proxy]'].includes(tag);
 };
 export { omit, isFunction };
