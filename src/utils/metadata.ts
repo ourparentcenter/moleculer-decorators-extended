@@ -21,8 +21,6 @@ export const getMetadataKeys = (target: object): any[] => {
 
 export const getMetadata = (target: object, key: string) => {
   const prefixedKey: string = prefixKey(key);
-  // const data = Reflect.getMetadata(prefixedKey, target);
-  // return data;
   return Reflect.getMetadata(prefixedKey, target);
 };
 
