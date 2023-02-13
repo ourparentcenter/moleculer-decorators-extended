@@ -3,8 +3,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { IncomingMessage, ServerResponse } from 'http';
 import Moleculer from 'moleculer';
-import { Method, Service } from '../../src';
+import { Method, Service } from '../../../src';
 import ApiGateway from 'moleculer-web';
+import { additionalServiceRoutes } from './additionalRoutes';
 
 export interface User {
   id: string;
@@ -13,17 +14,20 @@ export interface User {
 const { Errors } = ApiGateway;
 
 @Service({
+  name: 'api',
   mixins: [ApiGateway],
   settings: {
     port: process.env.PORT || 9000,
     routes: [
       {
+        path: '/getTest',
         aliases: {
-          'GET getTest/getModel/:withUser': 'GetTest.getModel'
+          'GET getModel/:withUser': 'GetTest.getModel'
         },
         authentication: true,
         whitelist: ['**']
-      }
+      },
+      ...additionalServiceRoutes
     ]
   }
 })

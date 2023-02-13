@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Moleculer from 'moleculer';
 import { Action, Method, Service, ServiceCreated, ServiceStarted, ServiceStopped } from '../../src';
-import { User } from './api.service';
+import { User } from './api/api.service';
 
 interface ChatsActionParams {
   withUser: string;
