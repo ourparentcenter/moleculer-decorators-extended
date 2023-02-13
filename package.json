@@ -14,7 +14,7 @@
     "lint:fix": "yarn eslint --fix",
     "dev": "nodemon --delay 2000 -e ts --exec \"npm run build\"",
     "test": "jest --coverage --forceExit --detectOpenHandles",
-    "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter'",
+    "test:ci": "jest --ci --reporters='default' --reporters='github-actions-reporter'",
     "format": "pretty-quick \"*.ts\" --write --staged",
     "ci": "yarn clean && yarn install",
     "clean": "yarn clean:packages && yarn install",
