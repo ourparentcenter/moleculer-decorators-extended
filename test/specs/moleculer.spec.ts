@@ -1,6 +1,6 @@
 import { ServiceBroker } from 'moleculer';
 import { CustomService } from '../customServices/CustomServiceFactory';
-import api from '../services/api.service';
+import api from '../services/api/api.service';
 import get from '../services/get.service';
 import db from '../services/db.service';
 import custom from '../customServices/custom.service';

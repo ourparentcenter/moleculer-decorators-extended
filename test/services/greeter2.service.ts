@@ -1,12 +1,11 @@
 'use strict';
-import moleculer, { Context } from 'moleculer';
-import { Get, Method, Post, Service, ServiceStarted, ServiceStopped } from '../../src';
-import { GreeterWelcomeParams } from '../../types';
+import { Method, Service } from '../../src';
+import { BaseService } from './baseFactory.service';
 /**
  * @typedef {import('moleculer').Context} Context Moleculer's Context
  */
 @Service({
-  name: 'greeter',
+  name: 'greeter2',
   version: 2,
   mergeActions: false,
   /**
@@ -14,8 +13,6 @@ import { GreeterWelcomeParams } from '../../types';
    */
   settings: {
     idField: '_id',
-    // Available fields in the responses
-    fields: ['_id', 'name', 'quantity', 'price'],
     // Base path
     rest: '/',
     // Validator for the `create` & `insert` actions.
@@ -24,51 +21,20 @@ import { GreeterWelcomeParams } from '../../types';
     }
   },
   actions: {
-    hi() {
+    hi2() {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      return <string>this.sayHello();
+      return <string>this.sayHello2();
     }
   },
   methods: {
-    sayHello() {
+    sayHello2() {
       return 'Hello from service method';
     }
   }
 })
-export default class GreeterService extends moleculer.Service {
-  @Get('/hello', {
-    name: 'hello'
-  })
-  async hello() {
-    return 'Hello Moleculer';
-  }
-
-  @Post('/welcome', {
-    name: 'welcome',
-    params: {
-      name: 'string'
-    }
-  })
-  async welcome(ctx: Context<GreeterWelcomeParams, Record<string, unknown>>) {
-    return `Welcome, ${ctx.params.name}`;
-  }
-
+export default class Greeter2Service extends BaseService {
   @Method
-  async test() {
+  async test2() {
     return 'Decorator method!!!';
-  }
-
-  async started() {
-    this.logger.info('♻ Greeter service started core moleculer started, ready for connections');
-  }
-
-  @ServiceStarted()
-  serviceGreeterStarted() {
-    this.logger.info('♻ Greeter service started, ready for connections');
-  }
-
-  @ServiceStopped()
-  serviceGreeterStopped() {
-    this.logger.info('♻ Greeter service stopped, connections terminated');
   }
 }

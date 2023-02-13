@@ -1,82 +1,40 @@
-"use strict";
-import moleculer, { Context } from "moleculer";
-import {
-  Get,
-  Method,
-  Post,
-  Service,
-  ServiceStarted,
-  ServiceStopped,
-} from "../../src";
-import { GreeterWelcomeParams } from "../../types";
+'use strict';
+import { Method, Service } from '../../src';
+import { BaseService } from './baseFactory.service';
 /**
  * @typedef {import('moleculer').Context} Context Moleculer's Context
  */
 @Service({
-  name: "greeter",
+  name: 'greeter',
   version: 1,
   mergeActions: true,
   /**
    * Settings
    */
   settings: {
-    idField: "_id",
-    // Available fields in the responses
-    fields: ["_id", "name", "quantity", "price"],
+    idField: '_id',
     // Base path
-    rest: "/",
+    rest: '/',
     // Validator for the `create` & `insert` actions.
     entityValidator: {
-      name: "string|min:3",
-    },
+      name: 'string|min:3'
+    }
   },
   actions: {
     hi() {
-      return this.sayHello();
-    },
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      return <string>this.sayHello();
+    }
   },
   methods: {
     sayHello() {
-      return "Hello from service method";
-    },
-  },
+      return 'Hello from service method';
+    }
+  }
 })
-export default class GreeterService extends moleculer.Service {
-  @Get("/hello", {
-    name: "hello",
-  })
-  async hello() {
-    return "Hello Moleculer";
-  }
-
-  @Post("/welcome", {
-    name: "welcome",
-    params: {
-      name: "string",
-    },
-  })
-  async welcome(ctx: Context<GreeterWelcomeParams, Record<string, unknown>>) {
-    return `Welcome, ${ctx.params.name}`;
-  }
-
+export default class GreeterService extends BaseService {
   @Method
   async test() {
-    return "Decorator method!!!";
-  }
-
-  async started() {
-    this.logger.info(
-      "♻ Greeter service started core moleculer started, ready for connections"
-    );
-  }
-
-  @ServiceStarted()
-  serviceGreeterStarted() {
-    this.logger.info("♻ Greeter service started, ready for connections");
-  }
-
-  @ServiceStopped()
-  serviceGreeterStopped() {
-    this.logger.info("♻ Greeter service stopped, connections terminated");
+    return 'Decorator method!!!';
   }
 }
