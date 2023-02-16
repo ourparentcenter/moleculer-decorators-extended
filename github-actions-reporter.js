@@ -17,7 +17,7 @@ class GithubActionsReporter {
         result.failureMessages.forEach((failureMessages) => {
           const newLine = '%0A';
           const message = failureMessages.replace(/\n/g, newLine);
-          const captureGroup = message.match(/:([0-9]+):([0-9]+)/);
+          const captureGroup = message.match(/:(\d+):(\d+)/);
 
           if (!captureGroup) {
             console.log('Unable to extract line number from call stack');
