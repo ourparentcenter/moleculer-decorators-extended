@@ -10,7 +10,6 @@
     "README.md"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lint:fix": "pnpm eslint --fix",
     "dev": "nodemon --delay 2000 -e ts --exec \"npm run build\"",
