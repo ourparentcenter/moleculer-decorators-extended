@@ -13,15 +13,15 @@ export interface ParamOptions extends ParamTypeOptions {
 }
 
 const paramError = 'Parameter name not specified';
-
+type PropertyKeyType = string | symbol | undefined;
 /**
  * Create the parameter definition for the service action
  * @param {ParamOptions} options
  */
 export const param = ({ name, type, ...options }: ParamOptions): ParameterDecorator => {
-  return (target: object, propertyKey: string | symbol, parameterIndex: number) => {
-    const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
-    const actionParams = getMetadata(target, `${propertyKey.toString()}Params`) || {};
+  return (target: object, propertyKey: PropertyKeyType, parameterIndex: number) => {
+    const desc = Object.getOwnPropertyDescriptor(target, propertyKey!) ?? {};
+    const actionParams = getMetadata(target, `${propertyKey!.toString()}Params`) ?? {};
     let validation: unknown;
 
     let paramName: string;
@@ -47,7 +47,7 @@ export const param = ({ name, type, ...options }: ParamOptions): ParameterDecora
       [paramName]: validation
     };
 
-    setMetadata(target, `${propertyKey.toString()}Params`, params);
+    setMetadata(target, `${propertyKey!.toString()}Params`, params);
   };
 };
 
@@ -55,8 +55,8 @@ export const param = ({ name, type, ...options }: ParamOptions): ParameterDecora
  * Add the action Context to the parameter when the action is executed
  */
 export const context = (name?: string): ParameterDecorator => {
-  return (target: object, propertyKey: string | symbol, parameterIndex: number) => {
-    const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
+  return (target: object, propertyKey: PropertyKeyType, parameterIndex: number) => {
+    const desc = Object.getOwnPropertyDescriptor(target, propertyKey!) ?? {};
     let paramName: string;
 
     if (name) {
@@ -70,7 +70,7 @@ export const context = (name?: string): ParameterDecorator => {
       throw new ReferenceError(paramError);
     }
 
-    setMetadata(target, `${propertyKey.toString()}Context`, { paramName, index: parameterIndex });
+    setMetadata(target, `${propertyKey!.toString()}Context`, { paramName, index: parameterIndex });
   };
 };
 
@@ -78,8 +78,8 @@ export const context = (name?: string): ParameterDecorator => {
  * Add the Context Metadata to the parameter when the action is executed
  */
 export const meta = (name?: string): ParameterDecorator => {
-  return (target: object, propertyKey: string | symbol, parameterIndex: number) => {
-    const desc = Object.getOwnPropertyDescriptor(target, propertyKey) || {};
+  return (target: object, propertyKey: PropertyKeyType, parameterIndex: number) => {
+    const desc = Object.getOwnPropertyDescriptor(target, propertyKey!) ?? {};
     let paramName: string;
 
     if (name) {
@@ -93,7 +93,7 @@ export const meta = (name?: string): ParameterDecorator => {
       throw new ReferenceError(paramError);
     }
 
-    setMetadata(target, `${propertyKey.toString()}Meta`, { paramName, index: parameterIndex });
+    setMetadata(target, `${propertyKey!.toString()}Meta`, { paramName, index: parameterIndex });
   };
 };
 

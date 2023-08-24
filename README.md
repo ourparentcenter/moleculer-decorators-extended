@@ -8,7 +8,19 @@
 # Moleculer Decorators
 > Decorators for moleculer, Tested & accurate as of 0.14
 
-
+## Http methods supported
+- Checkout       - Notify
+- Connect        - OptionsVerb
+- Copy           - Patch
+- Delete         - Post
+- Get            - Purge
+- Head           - Put
+- Lock           - Report
+- Merge          - Search
+- MKActivity     - Subscribe
+- MKCol          - Trace
+- Move           - Unlock
+- MSearch        - Unsubscribe
 
 ## Available options
 ```js
