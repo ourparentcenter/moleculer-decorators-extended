@@ -16,10 +16,10 @@ export type EventOptions = Partial<Pick<ServiceEvent, Exclude<keyof ServiceEvent
 export const Event = (options?: EventOptions): MethodDecorator => {
   return <T>(target: object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => {
     const handler = descriptor.value;
-    const eventName: string = (options || {}).name || propertyKey.toString();
+    const eventName: string = (options ?? {})?.name ?? propertyKey.toString();
     if (isFunction(handler)) {
       const opts: EventOptions = { name: propertyKey.toString(), ...options };
-      const events = getMetadata(target, 'events') || {};
+      const events = getMetadata(target, 'events') ?? {};
 
       events[eventName] = {
         handler,

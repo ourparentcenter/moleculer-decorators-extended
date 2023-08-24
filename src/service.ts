@@ -41,7 +41,8 @@ const serviceDescriptorConstructor = (parentService: any, base: ServiceSchema, v
 
   /* Insane hack below :D
    * It's needed since moleculer don't transfer all defined props in the schema to the actual service, so we have to do it.
-   * Side note: This is quite hacky and would be a performance loss if the created function would be called over and over, since it's called once, it's more than fine :)
+   * Side note: This is quite hacky and would be a performance loss if the created function would be called over and over,
+   * since it's called once, it's more than fine :)
    */
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -112,12 +113,12 @@ export type ServiceDecorator = <T extends ServiceConstructor>(constructor: T) =>
  * @param options
  */
 export const Service = <O extends Options>(opts?: O): ServiceDecorator => {
-  const options = opts || ({} as Options);
+  const options = opts ?? ({} as Options);
 
   return <T extends ServiceConstructor>(constructor: T) => {
     if (isServiceClass(constructor)) {
       let schema: ServiceSchema = {
-        name: options?.name || constructor.name,
+        name: options?.name ?? constructor.name,
         ...defaultServiceOptions,
         ...options
       };
