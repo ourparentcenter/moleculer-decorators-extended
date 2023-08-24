@@ -1,6 +1,6 @@
 {
   "name": "@ourparentcenter/moleculer-decorators-extended",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "decorators for moleculer",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -88,9 +88,9 @@
     "typescript": "5.1.6"
   },
   "engines": {
-		"node": ">= 16.x.x",
-		"pnpm": ">= 8.6.12"
-	},
+    "node": ">= 16.x.x",
+    "pnpm": ">= 8.6.12"
+  },
   "jest": {
     "coverageDirectory": "<rootDir>/coverage",
     "testEnvironment": "node",
